@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-gray-100">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Book Seats</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-blue-50 min-h-screen flex flex-col">
+<header class="bg-white shadow p-4 flex justify-between items-center">
+  <a href="/" class="text-2xl font-bold text-indigo-600">🎬 Movie Booking</a>
+  <nav class="flex items-center space-x-4">
+    {% if request.user.is_authenticated %}
+     
+      <form action="{% url 'logout' %}" method="POST" class="inline">
+        {% csrf_token %}
+        <button type="submit" class="text-red-600 hover:text-red-800 font-medium">Logout</button>
+      </form>
+    {% else %}
+      <a href="/register" class="text-gray-700 hover:text-indigo-600 font-medium">Register</a>
+      <a href="/login" class="text-gray-700 hover:text-indigo-600 font-medium">Login</a>
+    {% endif %}
+  </nav>
+</header>
+
+  <main class="p-6 w-full max-w-4xl mx-auto">
+    <h2 class="text-3xl font-bold mb-8 text-center text-indigo-800 tracking-wide">Select Your Seats</h2>
+
+    <div id="seats-container" class="grid grid-cols-10 gap-4 mb-10 justify-center"></div>
+
+    <div id="price-box" class="mb-6 max-w-md mx-auto bg-white rounded-lg shadow-md p-4 text-center text-xl font-semibold text-indigo-700">
+      Total Price: ₹0
+    </div>
+
+    <form id="booking-form" method="POST" action="{% url 'booking_page' showtime_id %}" class="w-full max-w-md bg-white p-8 rounded-xl shadow-lg mx-auto">
+      {% csrf_token %}
+      <input type="hidden" name="showtime_id" value="{{ showtime_id }}" />
+      <input type="hidden" name="seat_number" id="seat_numbers" />
+      <input type="hidden" name="price" id="price_input" />
+
+      <label class="block mb-6">
+        <span class="block text-gray-900 font-semibold mb-2">Customer Name</span>
+        <input type="text" name="customer_name" required
+          class="w-full border-2 border-indigo-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-4 focus:ring-indigo-400 transition" />
+      </label>
+
+      <label class="block mb-8">
+        <span class="block text-gray-900 font-semibold mb-2">Phone Number</span>
+        <input type="tel" name="phone_number" required
+          class="w-full border-2 border-indigo-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-4 focus:ring-indigo-400 transition" />
+      </label>
+
+      <button type="submit"
+        class="w-full bg-indigo-700 text-white font-bold py-3 rounded-lg hover:bg-indigo-800 focus:ring-4 focus:ring-indigo-400 transition">
+        Book Selected Seats
+      </button>
+    </form>
+  </main>
+
+  {{ booked_seats|json_script:"bookedSeatsData" }}
+
+<script>
+  const totalSeats = 50;
+  const pricePerSeat = 400;
+  const bookedSeats = JSON.parse(document.getElementById('bookedSeatsData').textContent);
+
+  const container = document.getElementById('seats-container');
+  const seatNumbersInput = document.getElementById('seat_numbers');
+  const priceInput = document.getElementById('price_input');
+  const priceBox = document.getElementById('price-box');
+  const selectedSeats = new Set();
+
+  function updatePrice() {
+    const count = selectedSeats.size;
+    const totalPrice = count * pricePerSeat;
+    if (priceBox) priceBox.textContent = `Total Price: ₹${totalPrice}`;
+    if (priceInput) priceInput.value = totalPrice;
+  }
+
+  for (let i = 1; i <= totalSeats; i++) {
+    const seatBtn = document.createElement('button');
+    seatBtn.type = 'button';
+    seatBtn.textContent = i;
+    seatBtn.setAttribute('aria-label', `Seat ${i}`);
+    seatBtn.classList.add('rounded-lg', 'font-semibold', 'py-3', 'select-none', 'transition', 'shadow-md', 'text-center', 'text-lg');
+
+    if (bookedSeats.includes(i)) {
+      seatBtn.disabled = true;
+      seatBtn.classList.add('bg-red-600', 'text-white', 'cursor-not-allowed', 'opacity-80', 'shadow-inner');
+    } else {
+      seatBtn.classList.add('bg-green-400', 'hover:bg-green-500', 'cursor-pointer', 'focus:outline-none', 'focus:ring-4', 'focus:ring-green-300');
+      seatBtn.addEventListener('click', () => {
+        if (selectedSeats.has(i)) {
+          selectedSeats.delete(i);
+          seatBtn.classList.remove('bg-indigo-700', 'text-white');
+          seatBtn.classList.add('bg-green-400', 'hover:bg-green-500');
+        } else {
+          selectedSeats.add(i);
+          seatBtn.classList.add('bg-indigo-700', 'text-white');
+          seatBtn.classList.remove('bg-green-400', 'hover:bg-green-500');
+        }
+        seatNumbersInput.value = Array.from(selectedSeats).sort((a, b) => a - b).join(',');
+        updatePrice();
+      });
+    }
+
+    container.appendChild(seatBtn);
+  }
+
+  document.getElementById('booking-form').addEventListener('submit', function (e) {
+    if (selectedSeats.size === 0) {
+      e.preventDefault();
+      alert('Please select at least one seat.');
+    }
+  });
+
+  updatePrice(); 
+</script>
+<footer class="text-center py-6 text-sm text-gray-500">
+    © 2025 Movie Booking. Built with ❤️ using Django + Tailwind.
+  </footer>
+
+
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Register | Movie Booking</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-blue-50 min-h-screen flex flex-col">
+
+
+<header class="bg-white shadow p-4 flex justify-between items-center">
+  <a href="/" class="text-2xl font-bold text-indigo-600">🎬 Movie Booking</a>
+  <nav class="flex items-center space-x-4">
+    {% if request.user.is_authenticated %}
+     
+      <form action="{% url 'logout' %}" method="POST" class="inline">
+        {% csrf_token %}
+        <button type="submit" class="text-red-600 hover:text-red-800 font-medium">Logout</button>
+      </form>
+    {% else %}
+      <a href="/register" class="text-gray-700 hover:text-indigo-600 font-medium">Register</a>
+      <a href="/login" class="text-gray-700 hover:text-indigo-600 font-medium">Login</a>
+    {% endif %}
+  </nav>
+</header>
+
+
+  <main class="flex-grow flex items-center justify-center px-4">
+    <form method="POST" class="bg-white p-8 rounded-lg shadow-md w-full max-w-sm">
+      {% csrf_token %}
+      <h2 class="text-3xl font-bold mb-6 text-center text-indigo-600">Register</h2>
+
+      <input
+        type="text"
+        name="username"
+        placeholder="Username"
+        required
+        class="mb-4 w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-400"
+      />
+
+      <input
+        type="email"
+        name="email"
+        placeholder="Email"
+        required
+        class="mb-4 w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-400"
+      />
+
+      <input
+        type="password"
+        name="password"
+        placeholder="Password"
+        required
+        class="mb-4 w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-400"
+      />
+
+      <input
+        type="password"
+        name="confirm"
+        placeholder="Confirm Password"
+        required
+        class="mb-6 w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-400"
+      />
+
+      <button
+        type="submit"
+        class="bg-indigo-600 text-white w-full py-3 rounded hover:bg-indigo-700 transition-colors"
+      >
+        Register
+      </button>
+
+      <p class="text-sm text-center mt-6 text-gray-600">
+        Already have an account?
+        <a href="{% url 'login' %}" class="text-indigo-600 hover:underline">Login</a>
+      </p>
+    </form>
+  </main>
+
+  <footer class="bg-white text-center py-6 text-sm text-gray-500 border-t">
+    © 2025 Movie Booking. Built with ❤️ using Django + Tailwind.
+  </footer>
+
+</body>
+</html>

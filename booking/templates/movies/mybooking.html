@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-gray-100">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Bookings - Movie Booking</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen flex flex-col bg-blue-50">
+
+<header class="bg-white shadow p-4 flex justify-between items-center">
+  <a href="/" class="text-2xl font-bold text-indigo-600">🎬 Movie Booking</a>
+  <nav class="flex items-center space-x-4">
+    {% if request.user.is_authenticated %}
+     
+      <form action="{% url 'logout' %}" method="POST" class="inline">
+        {% csrf_token %}
+        <button type="submit" class="text-red-600 hover:text-red-800 font-medium">Logout</button>
+      </form>
+    {% else %}
+      <a href="/register" class="text-gray-700 hover:text-indigo-600 font-medium">Register</a>
+      <a href="/login" class="text-gray-700 hover:text-indigo-600 font-medium">Login</a>
+    {% endif %}
+  </nav>
+</header>
+
+
+  <main class="max-w-4xl mx-auto px-6 pb-20 flex-grow">
+    <h2 class="text-4xl font-extrabold text-indigo-800 mb-8 text-center tracking-wide">My Bookings</h2>
+
+    {% if bookings %}
+      <ul class="space-y-6">
+        {% for booking in bookings %}
+          <li class="bg-white rounded-lg shadow-md p-6 flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0 md:space-x-6">
+            <div>
+              <h3 class="text-xl font-semibold text-indigo-700">{{ booking.showtime.movie.title }}</h3>
+              <p class="text-gray-600">Showtime: <time>{{ booking.showtime.start_time|date:"F j, Y, g:i A" }}</time></p>
+              <p class="text-gray-600">Seat(s): <span class="font-medium">{{ booking.seat_number }}</span></p>
+              <p class="text-gray-600">Ticket Code: <code class="bg-gray-100 px-2 py-1 rounded font-mono">{{ booking.ticket_code }}</code></p>
+            </div>
+            <div class="flex flex-col items-start md:items-end space-y-2">
+              <span class="inline-block bg-indigo-100 text-indigo-800 font-semibold px-4 py-2 rounded">
+                Price: ₹{{ booking.price }}
+              </span>
+              <form method="POST" action="{% url 'cancel_booking' booking.pk %}">
+                {% csrf_token %}
+                <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition">
+                  Cancel Booking
+                </button>
+              </form>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="text-center text-gray-500 text-lg">No bookings found.</p>
+    {% endif %}
+  </main>
+
+</body>
+</html>

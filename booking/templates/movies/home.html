@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Movie Booking | Home</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-indigo-100 to-white min-h-screen text-gray-800">
+
+
+<header class="bg-white shadow p-4 flex justify-between items-center">
+  <a href="/" class="text-2xl font-bold text-indigo-600">🎬 Movie Booking</a>
+  <nav class="flex items-center space-x-4">
+    {% if request.user.is_authenticated %}
+     
+      <form action="{% url 'logout' %}" method="POST" class="inline">
+        {% csrf_token %}
+        <button type="submit" class="text-red-600 hover:text-red-800 font-medium">Logout</button>
+      </form>
+    {% else %}
+      <a href="/register" class="text-gray-700 hover:text-indigo-600 font-medium">Register</a>
+      <a href="/login" class="text-gray-700 hover:text-indigo-600 font-medium">Login</a>
+    {% endif %}
+  </nav>
+</header>
+
+
+
+
+
+<section class="text-center py-20 px-4">
+  <h2 class="text-4xl font-extrabold text-indigo-700 mb-4 animate-bounce">Welcome to Movie Booking</h2>
+  <p class="text-lg text-gray-600 max-w-xl mx-auto mb-6">Discover and manage your favorite movies effortlessly. Fast. Clean. Visual.</p>
+
+<div class="flex justify-center gap-4">
+  <a href="{% url 'showtime_list_create' %}" 
+     class="bg-indigo-500 text-white w-48 py-3 rounded-lg text-lg shadow hover:bg-indigo-600 transition inline-block">
+    🎥 View All Showtime
+  </a>
+    <a href="{% url 'movie-list' %}" 
+     class="bg-indigo-500 text-white w-48 py-3 rounded-lg text-lg shadow hover:bg-indigo-600 transition inline-block">
+    🎥 View Movies
+  </a>
+
+  {% if request.user.is_authenticated %}
+    {% if request.user.is_staff %}
+      <a href="{% url 'all_bookings' %}" 
+         class="bg-indigo-500 text-white w-48 py-3 rounded-lg text-lg shadow hover:bg-indigo-600 transition inline-block">
+        🎥 All Bookings
+      </a>
+    {% else %}
+      <a href="{% url 'my_bookings' %}" 
+         class="bg-indigo-500 text-white w-48 py-3 rounded-lg text-lg shadow hover:bg-indigo-600 transition inline-block">
+        🎥 View Booking
+      </a>
+    {% endif %}
+  {% endif %}
+</div>
+
+  <section class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto px-6 py-10">
+    <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+      <h3 class="text-xl font-semibold mb-2">📽️ Easy Movie Management</h3>
+      <p class="text-gray-600">Create, list, and manage movies in a few clicks with clean forms and poster uploads.</p>
+    </div>
+    <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+      <h3 class="text-xl font-semibold mb-2">🖼️ HD Poster Previews</h3>
+      <p class="text-gray-600">View posters in a stylish movie card layout, making the experience visually rich.</p>
+    </div>
+    <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+      <h3 class="text-xl font-semibold mb-2">🚀 Built with Django + Tailwind</h3>
+      <p class="text-gray-600">Modern design with a powerful backend — fast, secure, and easy to customize.</p>
+    </div>
+  </section>
+
+  <footer class="text-center py-6 text-sm text-gray-500">
+    © 2025 Movie Booking. Built with ❤️ using Django + Tailwind.
+  </footer>
+
+</body>
+</html>
