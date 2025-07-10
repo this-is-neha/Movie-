@@ -19,23 +19,25 @@ Follow these steps to set up and run the Django Movie Booking project on your lo
     pip freeze > requirements.txt
  
 5. Install required packages
+   
     
      pip install -r requirements.txt
+   
 
-6. Install Django and Pillow -
+7. Install Django and Pillow -
 
           pip install django
 
           pip install Pillow
 
 
-7. Apply database migrations-
+8. Apply database migrations-
 
-     python manage.py migrate
+          python manage.py migrate
    
 9. Use the default superuser credentials:'
     
-     Username: Neha    Password: THAPATHALI078!a
+          Username: Neha    Password: THAPATHALI078!a
    
 OR 
 
