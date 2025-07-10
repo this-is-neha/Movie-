@@ -1,16 +1,20 @@
 Follow these steps to set up and run the Django Movie Booking project on your local machine.
 
 Clone the Repository-   git clone https://github.com/this-is-neha/Movie-
+
 Go to working directory cd Movie-
 
 Create and Activate Virtual Environment
+
   On Windows:   python -m venv venv
+  
   On macOS/Linux:   venv\Scripts\activate
 
 Freeze current packages to requirements.txt-  pip freeze > requirements.txt
 Install required packages-   pip install -r requirements.txt
 
 Install Django and Pillow - pip install django
+
                             pip install Pillow
 
 
