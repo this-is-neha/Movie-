@@ -43,8 +43,12 @@ Create a superuser
 
     python manage.py createsuperuser
 
-9.   For a user experience you can register which will automatically get u logged In 
+9.   For a user experience you can register which will automatically get u logged In
+    
+10. Run using command
 
+     python manage.py runserver
+    
 
 This Django Movie Booking project is a web application that allows users to browse movies, view showtimes, and conveniently book tickets online. It features a user-friendly interface built with Tailwind CSS and a robust backend powered by Django. Registered users can log in, explore the list of available movies, check showtimes, and make bookings for their preferred seats. Each booking is securely linked to the respective user and stored in a database.
 
