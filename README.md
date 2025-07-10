@@ -20,7 +20,7 @@ Follow these steps to set up and run the Django Movie Booking project on your lo
  
 5. Install required packages
    
-      pip install -r requirements.txt
+    pip install -r requirements.txt
    
 7. Install Django and Pillow -
 
