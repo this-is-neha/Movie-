@@ -3,12 +3,13 @@ Follow these steps to set up and run the Django Movie Booking project on your lo
 1. Clone the Repository-   git clone https://github.com/this-is-neha/Movie-
 
 2. Go to working directory
+
                              a.cd Movie-
                              b.cd movie_booking
 
   
 
-3. Create and Activate Virtual Environment
+4. Create and Activate Virtual Environment
 
  a. On Windows:  
         
