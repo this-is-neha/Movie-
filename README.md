@@ -13,9 +13,11 @@ Create and Activate Virtual Environment
 Freeze current packages to requirements.txt-  pip freeze > requirements.txt
 Install required packages-   pip install -r requirements.txt
 
-Install Django and Pillow - pip install django
+Install Django and Pillow -
 
-                            pip install Pillow
+pip install django
+
+pip install Pillow
 
 
 Apply database migrations-   python manage.py migrate
