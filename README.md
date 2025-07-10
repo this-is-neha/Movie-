@@ -2,7 +2,11 @@ Follow these steps to set up and run the Django Movie Booking project on your lo
 
 1. Clone the Repository-   git clone https://github.com/this-is-neha/Movie-
 
-2. Go to working directory cd Movie-
+2. Go to working directory
+                             a.cd Movie-
+                             b.cd movie_booking
+
+  
 
 3. Create and Activate Virtual Environment
 
@@ -49,7 +53,9 @@ Create a superuser
 
            python manage.py runserver
 
-    
+
+
+It has been hosted in http://127.0.0.1:8000/
 
 This Django Movie Booking project is a web application that allows users to browse movies, view showtimes, and conveniently book tickets online. It features a user-friendly interface built with Tailwind CSS and a robust backend powered by Django. Registered users can log in, explore the list of available movies, check showtimes, and make bookings for their preferred seats. Each booking is securely linked to the respective user and stored in a database.
 
