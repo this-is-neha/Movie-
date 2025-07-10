@@ -1,32 +1,48 @@
 Follow these steps to set up and run the Django Movie Booking project on your local machine.
 
-Clone the Repository-   git clone https://github.com/this-is-neha/Movie-
+1. Clone the Repository-   git clone https://github.com/this-is-neha/Movie-
 
-Go to working directory cd Movie-
+2. Go to working directory cd Movie-
 
-Create and Activate Virtual Environment
+3. Create and Activate Virtual Environment
 
-  On Windows:   python -m venv venv
+ a. On Windows:  
+        
+        python -m venv venv
   
-  On macOS/Linux:   venv\Scripts\activate
+  b. On macOS/Linux:   
+  
+      venv\Scripts\activate
 
-Freeze current packages to requirements.txt-  pip freeze > requirements.txt
-Install required packages-   pip install -r requirements.txt
+4.Freeze current packages to requirements.txt
 
-Install Django and Pillow -
+    pip freeze > requirements.txt
+ 
+5. Install required packages
+    
+    pip install -r requirements.txt
 
-pip install django
+6. Install Django and Pillow -
 
-pip install Pillow
+          pip install django
+
+          pip install Pillow
 
 
-Apply database migrations-   python manage.py migrate
+7. Apply database migrations-
 
-Use the default superuser credentials:   Username: Neha    Password: THAPATHALI078!a
+     python manage.py migrate
+
+8. Use the default superuser credentials:
+     Username: Neha    Password: THAPATHALI078!a
+   
 OR 
-Create a superuser - python manage.py createsuperuser
 
-For a user experience you can register which will automatically get u logged In 
+Create a superuser 
+
+    python manage.py createsuperuser
+
+9.   For a user experience you can register which will automatically get u logged In 
 
 
 This Django Movie Booking project is a web application that allows users to browse movies, view showtimes, and conveniently book tickets online. It features a user-friendly interface built with Tailwind CSS and a robust backend powered by Django. Registered users can log in, explore the list of available movies, check showtimes, and make bookings for their preferred seats. Each booking is securely linked to the respective user and stored in a database.
