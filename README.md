@@ -5,8 +5,7 @@ Follow these steps to set up and run the Django Movie Booking project on your lo
 2. Go to working directory
 
                              a.cd Movie-
-                             b.cd movie_booking
-
+                    
   
 
 4. Create and Activate Virtual Environment
