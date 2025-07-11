@@ -101,7 +101,7 @@ def movie_edit(request, id):
         movie.save()
         return redirect('movie-list')
 
-    return render(request, 'movies/movie_edit.html', {'movie': movie})
+    return render(request, 'movies/movieedit.html', {'movie': movie})
 
 
 def movie_delete(request, id):
