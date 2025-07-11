@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Edit Showtime</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-blue-50 min-h-screen flex flex-col">
+  <header class="bg-white shadow p-4 flex justify-between items-center">
+    <a href="/" class="text-2xl font-bold text-indigo-600">🎬 Movie Booking</a>
+    <nav class="flex items-center space-x-4">
+      {% if request.user.is_authenticated %}
+      <form action="{% url 'logout' %}" method="POST" class="inline">
+        {% csrf_token %}
+        <button type="submit" class="text-red-600 hover:text-red-800 font-medium">Logout</button>
+      </form>
+      {% else %}
+      <a href="/register" class="text-gray-700 hover:text-indigo-600 font-medium">Register</a>
+      <a href="/login" class="text-gray-700 hover:text-indigo-600 font-medium">Login</a>
+      {% endif %}
+    </nav>
+  </header>
+
+  <main class="flex-grow container mx-auto px-6 py-10 max-w-lg">
+    <h2 class="text-2xl font-bold mb-6 text-gray-800">Edit Showtime</h2>
+
+    {% if messages %}
+    <ul class="mb-4">
+      {% for message in messages %}
+      <li class="mb-2 px-4 py-2 rounded 
+                 {% if message.tags == 'error' %} bg-red-200 text-red-800
+                 {% elif message.tags == 'success' %} bg-green-200 text-green-800
+                 {% else %} bg-gray-200 text-gray-800 {% endif %}">
+        {{ message }}
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    <form method="post" action="{% url 'edit-showtime' showtime.id %}" class="space-y-5">
+      {% csrf_token %}
+
+      <div>
+        <label for="time" class="block font-semibold mb-1">Showtime</label>
+        <input type="datetime-local" id="time" name="time"
+          value="{{ showtime.time|date:'Y-m-d\\TH:i' }}" required
+          class="w-full p-2 border border-gray-300 rounded" />
+      </div>
+
+      <div>
+        <label for="total_seats" class="block font-semibold mb-1">Total Seats</label>
+        <input type="number" id="total_seats" name="total_seats" value="{{ showtime.total_seats }}" min="1" required
+          class="w-full p-2 border border-gray-300 rounded" />
+      </div>
+
+      <div>
+        <label for="available_seats" class="block font-semibold mb-1">Available Seats</label>
+        <input type="number" id="available_seats" name="available_seats" value="{{ showtime.available_seats }}" min="0" required
+          class="w-full p-2 border border-gray-300 rounded" />
+      </div>
+
+      <div class="pt-4">
+        <button type="submit"
+          class="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 rounded transition duration-200">
+          Update Showtime
+        </button>
+      </div>
+    </form>
+  </main>
+
+  <footer class="bg-white text-center py-6 text-sm text-gray-500 border-t mt-auto">
+    © 2025 Movie Booking. Built with ❤️ using Django + Tailwind.
+  </footer>
+</body>
+
+</html>

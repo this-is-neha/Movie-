@@ -172,7 +172,7 @@ def showtime_edit(request, pk):
         showtime.save()
         return redirect('showtime_list_create')
 
-    return render(request, 'movies/showtime_edit.html', {'showtime': showtime})
+    return render(request, 'movies/showtimeedit.html', {'showtime': showtime})
 
 def showtime_delete(request, pk):
     showtime = Showtime.objects.get(pk=pk)
