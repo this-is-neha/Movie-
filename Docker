@@ -1,0 +1,29 @@
+# Use official Python slim image
+FROM python:3.10-slim
+
+# Install system dependencies for Pillow and others
+RUN apt-get update && apt-get install -y \
+    libjpeg-dev \
+    zlib1g-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set working directory inside container
+WORKDIR /app
+
+# Copy requirements file and install Python dependencies
+COPY requirements.txt .
+
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
+
+# Copy the entire project code into the container
+COPY . .
+
+# Collect static files (optional: uncomment if you use static files)
+# RUN python manage.py collectstatic --noinput
+
+# Expose port 8000 (default Django port)
+EXPOSE 8000
+
+# Start the app with Gunicorn binding to Render's PORT env variable
+CMD ["gunicorn", "movie_booking.wsgi", "--bind", "0.0.0.0:8000"]
