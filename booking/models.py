@@ -13,7 +13,7 @@ class Movie(models.Model):
     release_date = models.DateField()
     duration = models.IntegerField(help_text="Duration in minutes")
     poster = models.ImageField(upload_to='posters/', blank=True, null=True) 
-
+    watch_trailer = models.URLField(max_length=200, blank=True, null=True, help_text="YouTube or video trailer link")
     def __str__(self):
         return self.title
 class Showtime(models.Model):
