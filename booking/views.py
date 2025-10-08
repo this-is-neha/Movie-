@@ -24,7 +24,7 @@ def register(request):
         if password == confirm:
             if User.objects.filter(username=username).exists():
                 return render(request, 'movies/register.html', {'error': 'Username already exists.'})
- # User is a django model class -basically the bluepprint of the tavle    
+# User is a django model class -basically the bluepprint of the tavle    
             user = User.objects.create_user(username=username, email=email, password=password)
             user.save()
 # user si the object of teh class user representing a row ... in the User table 
